@@ -22,7 +22,7 @@ import {
   View
 } from 'react-native';
 
-import Scrawl from './react-native-scrawl'
+import Scrawl from 'react-native-scrawl'
 
 export default class ScrawlApp extends Component {
   render() {
