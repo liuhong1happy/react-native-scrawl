@@ -11,7 +11,7 @@ create scrawl with react-native-svg
 	npm install --save react-native-svg
 	react-native link react-native-svg
 	# install react-raphael-scrawl in your react-raphael-scrawl project
-    npm install --save react-native-scrawl
+  npm install --save react-native-scrawl
     
 ## Quickly Start
 
@@ -48,6 +48,14 @@ AppRegistry.registerComponent('scrawl', () => ScrawlApp);
 #### All Scrawl Ref
 
 - clear `function` clear all scrawl path
+
+## Development
+
+    npm install
+    react-native link react-native-svg
+    react-native run-android
+    react-native run-ios
+
 
 ## Contact
 

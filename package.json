@@ -1,11 +1,11 @@
 {
   "name": "react-native-scrawl",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
-  "files": ["react-native-scrawl.js"],
+  "files": ["react-native-scrawl.js", "README.md"],
   "main": "react-native-scrawl.js",
   "devDependencies": {
     "react": "^15.4.1",
@@ -14,7 +14,7 @@
     "babel-preset-react-native": "1.9.0",
     "jest": "17.0.3",
     "react-test-renderer": "15.4.1",
-	"react-native-svg": "^4.4.1"
+	  "react-native-svg": "^4.4.1"
   },
   "jest": {
     "preset": "react-native"
