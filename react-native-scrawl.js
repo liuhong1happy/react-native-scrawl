@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
-	PanResponder
+	PanResponder,
+	Platform
 } from 'react-native'
 import {
 	Svg,
@@ -29,8 +30,8 @@ class Scrawl extends Component {
 		});
   	}
     handleStart(evt, gestureState){
-		const x = evt.nativeEvent.locationX;
-		const y = evt.nativeEvent.locationY;
+		const x = Platform.OS==='ios' ? evt.nativeEvent.locationX : gestureState.x0;
+		const y = Platform.OS==='ios' ? evt.nativeEvent.locationY : gestureState.y0;
 
       	this.paths = this.paths || [];
         this.d = ["M"+x+","+y];
@@ -40,9 +41,10 @@ class Scrawl extends Component {
         this.moving = true;
         this.paths.push(this.path);
     }
-    handleMove(evt, {dx, dy}){
-		const x = evt.nativeEvent.locationX;
-		const y = evt.nativeEvent.locationY;
+    handleMove(evt, gestureState){
+		const x = Platform.OS==='ios' ? evt.nativeEvent.locationX : gestureState.moveX;
+		const y = Platform.OS==='ios' ? evt.nativeEvent.locationY : gestureState.moveY;
+		const { dx, dy } = gestureState;
         if(this.moving){
             this.d.push("L"+x+","+y);
             this.path.d = this.d;

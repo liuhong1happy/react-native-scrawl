@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Text,
+  StatusBar
 } from 'react-native';
 import Scrawl from './react-native-scrawl'
 
@@ -18,9 +19,10 @@ export default class scrawl extends Component {
     this.refs.scrawl.clear();
   }
   handleSave() {
-    this.refs.scrawl.toDataURL((base64)=>{
-      Alert.alert('info', 'Save Successfully!');
-    })
+    Alert.alert('info', 'Save Successfully!');
+    // this.refs.scrawl.toDataURL((base64)=>{
+      
+    // })
   }
   render() {
     return (
@@ -47,11 +49,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
     borderWidth: 1,
     borderColor: '#ddd',
-    height,
+    height: height - StatusBar.currentHeight,
     width
   },
   scrawl: {
-    height: height - buttonHeight,
+    height: height - buttonHeight - StatusBar.currentHeight,
     width,
   },
   buttonContainer: {

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Text,
-  CameraRoll
+  CameraRoll,
 } from 'react-native';
 import Scrawl from './react-native-scrawl'
 
