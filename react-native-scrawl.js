@@ -15,28 +15,23 @@ class Scrawl extends Component {
 		}
 	}
   	componentWillMount() {
-		var handleStart = this.handleStart.bind(this);
-		var handleMove = this.handleMove.bind(this);
-		var handleEnd = this.handleEnd.bind(this);
-		
 		this._panResponder = PanResponder.create({
 		  onStartShouldSetPanResponder: (evt, gestureState) => true,
 		  onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
 		  onMoveShouldSetPanResponder: (evt, gestureState) => true,
 		  onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-		  onPanResponderGrant: (evt, gestureState) => {
-			  handleStart(evt.nativeEvent.locationX,evt.nativeEvent.locationY,evt.nativeEvent);
-		  },
-		  onPanResponderMove: (evt, gestureState) => {
-			  handleMove(gestureState.dx,gestureState.dy,evt.nativeEvent.locationX,evt.nativeEvent.locationY,evt.nativeEvent);
-		  },
+		  onPanResponderGrant: (evt, gestureState) => this.handleStart(evt, gestureState),
+		  onPanResponderMove: (evt, gestureState) => this.handleMove(evt, gestureState),
 		  onPanResponderTerminationRequest: (evt, gestureState) => true,
-		  onPanResponderRelease: handleEnd,
-		  onPanResponderTerminate: handleEnd,
+		  onPanResponderRelease: (evt)=>this.handleEnd(evt),
+		  onPanResponderTerminate: (evt)=>this.handleEnd(evt),
 		  onShouldBlockNativeResponder: (evt, gestureState) => true
 		});
   	}
-    handleStart(x,y,e){
+    handleStart(evt, gestureState){
+		const x = evt.nativeEvent.locationX;
+		const y = evt.nativeEvent.locationY;
+
       	this.paths = this.paths || [];
         this.d = ["M"+x+","+y];
 		this.path = {};
@@ -45,7 +40,9 @@ class Scrawl extends Component {
         this.moving = true;
         this.paths.push(this.path);
     }
-    handleMove(dx,dy,x,y,e){
+    handleMove(evt, {dx, dy}){
+		const x = evt.nativeEvent.locationX;
+		const y = evt.nativeEvent.locationY;
         if(this.moving){
             this.d.push("L"+x+","+y);
             this.path.d = this.d;
@@ -58,6 +55,12 @@ class Scrawl extends Component {
     handleEnd(e){
         this.moving = false;
     }
+	handleLayout(evt) {
+		this.offset = {
+			x: evt.nativeEvent.layout.x,
+			y: evt.nativeEvent.layout.y
+		}
+	}
     clear(){
         if(!this.paths) return;
         for(var i=0;i<this.paths.length;i++){
@@ -67,7 +70,7 @@ class Scrawl extends Component {
 	render(){
 		this.paths = this.paths || [];
 		var {width,height} = this.props;
-		return (<Svg {...this._panResponder.panHandlers} width={width} height={height}>{
+		return (<Svg {...this._panResponder.panHandlers} width={width} height={height} onLayout={(evt)=>this.handleLayout(evt)}>{
 			this.paths.map(function(ele,pos){
 				return (<Path key={pos} {...ele.attr} d={ele.d.join("")} />)
 			})
