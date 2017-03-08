@@ -55,22 +55,22 @@ class Scrawl extends Component {
     handleEnd(e){
         this.moving = false;
     }
-	handleLayout(evt) {
-		this.offset = {
-			x: evt.nativeEvent.layout.x,
-			y: evt.nativeEvent.layout.y
-		}
-	}
     clear(){
         if(!this.paths) return;
         for(var i=0;i<this.paths.length;i++){
             this.paths = [];
         }
+		this.setState({
+			d: []
+		})
     }
+	toDataURL(callback) {
+		return this.refs.root.toDataURL(callback)
+	}
 	render(){
 		this.paths = this.paths || [];
 		var {width,height} = this.props;
-		return (<Svg {...this._panResponder.panHandlers} width={width} height={height} onLayout={(evt)=>this.handleLayout(evt)}>{
+		return (<Svg ref="root" {...this._panResponder.panHandlers} width={width} height={height} >{
 			this.paths.map(function(ele,pos){
 				return (<Path key={pos} {...ele.attr} d={ele.d.join("")} />)
 			})
