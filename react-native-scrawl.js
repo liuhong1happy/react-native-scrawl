@@ -1,3 +1,5 @@
+/** @namespace Scrawl */
+
 import React, { Component } from 'react';
 import {
 	PanResponder,
@@ -7,14 +9,31 @@ import {
 	Svg,
 	Path
 } from 'react-native-svg';
-
+/**
+ * Class of react-native-scrawl
+ * 
+ * @class Scrawl
+ * @extends {Component}
+ */
 class Scrawl extends Component {
+    /**
+     * Creates an instance of Scrawl.
+     * @param {any} props 
+     * 
+     * @memberOf Scrawl
+     */
 	constructor(props){
 		super(props);
 		this.state = {
 			d: []
 		}
     }
+    /**
+     * componentWillMount of react lief cycle
+     * @this Scrawl
+     * @override
+     * @memberOf Scrawl
+     */
     componentWillMount() {
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -29,6 +48,33 @@ class Scrawl extends Component {
             onShouldBlockNativeResponder: (evt, gestureState) => true
         });
     }
+    /**
+     * propTypes of Scrawl
+     * @static
+     * @memberOf Scrawl
+     */
+    static propTypes = {
+        width: React.PropTypes.number, 
+        height: React.PropTypes.number,
+        attr: React.PropTypes.object
+    }
+    /**
+     * defaultProps of Scrawl
+     * @static
+     * @memberOf Scrawl
+     */
+    static defaultProps = { 
+        width: 600, 
+        height: 400,
+        attr: { "stroke": "#000","strokeWidth": 6,"fill": "none"}
+    }
+
+    /**
+     * Handler of PanResponder
+     * @param {any} evt 
+     * @param {any} gestureState 
+     * @memberOf Scrawl
+     */
     handleStart(evt, gestureState){
 		const x = Platform.OS==='ios' ? evt.nativeEvent.locationX : gestureState.x0;
 		const y = Platform.OS==='ios' ? evt.nativeEvent.locationY : gestureState.y0;
@@ -41,6 +87,12 @@ class Scrawl extends Component {
         this.moving = true;
         this.paths.push(this.path);
     }
+    /**
+     * Handler of PanResponder
+     * @param {any} evt 
+     * @param {any} gestureState 
+     * @memberOf Scrawl
+     */
     handleMove(evt, gestureState){
 		const x = Platform.OS==='ios' ? evt.nativeEvent.locationX : gestureState.moveX;
 		const y = Platform.OS==='ios' ? evt.nativeEvent.locationY : gestureState.moveY;
@@ -54,9 +106,18 @@ class Scrawl extends Component {
 			d: this.d
 		})
     }
+    /**
+     * Handler of PanResponder
+     * @param {any} e 
+     * @memberOf Scrawl
+     */
     handleEnd(e){
         this.moving = false;
     }
+    /**
+     * Clear all path
+     * @memberOf Scrawl
+     */
     clear(){
         if(!this.paths) return;
         for(let i=0;i<this.paths.length;i++){
@@ -66,6 +127,11 @@ class Scrawl extends Component {
 			d: []
 		})
     }
+    /**
+     * Base64 of svg
+     * @callback  callback
+     * @memberOf Scrawl
+     */
 	toDataURL(callback) {
 		return this.refs.root.toDataURL(callback)
 	}
@@ -78,18 +144,6 @@ class Scrawl extends Component {
 			})
 		}</Svg>)
 	}
-}
-
-Scrawl.propTypes = { 
-	width: React.PropTypes.number, 
-	height: React.PropTypes.number,
-    attr: React.PropTypes.object
-};
-
-Scrawl.defaultProps = { 
-	width: 600, 
-	height: 400,
-    attr: { "stroke": "#000","strokeWidth": 6,"fill": "none"}
 }
 
 export default Scrawl;
