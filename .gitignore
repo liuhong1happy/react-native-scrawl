@@ -29,6 +29,8 @@ build/
 .gradle
 local.properties
 *.iml
+android/gradle/wrapper/
+android/gradle/wrapper/gradle-wrapper.properties
 
 # node.js
 #

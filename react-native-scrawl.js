@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
-	PanResponder
+	PanResponder,
+	Platform
 } from 'react-native'
 import {
 	Svg,
@@ -13,7 +14,7 @@ class Scrawl extends Component {
 		this.state = {
 			d: []
 		}
-	}
+    }
     componentWillMount() {
         this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -29,8 +30,8 @@ class Scrawl extends Component {
         });
     }
     handleStart(evt, gestureState){
-		const x = evt.nativeEvent.locationX;
-		const y = evt.nativeEvent.locationY;
+		const x = Platform.OS==='ios' ? evt.nativeEvent.locationX : gestureState.x0;
+		const y = Platform.OS==='ios' ? evt.nativeEvent.locationY : gestureState.y0;
 
         this.paths = this.paths || [];
         this.d = ["M"+x+","+y];
@@ -40,9 +41,10 @@ class Scrawl extends Component {
         this.moving = true;
         this.paths.push(this.path);
     }
-    handleMove(evt, {dx, dy}){
-		const x = evt.nativeEvent.locationX;
-		const y = evt.nativeEvent.locationY;
+    handleMove(evt, gestureState){
+		const x = Platform.OS==='ios' ? evt.nativeEvent.locationX : gestureState.moveX;
+		const y = Platform.OS==='ios' ? evt.nativeEvent.locationY : gestureState.moveY;
+		const { dx, dy } = gestureState;
         if(this.moving){
             this.d.push("L"+x+","+y);
             this.path.d = this.d;
@@ -55,22 +57,22 @@ class Scrawl extends Component {
     handleEnd(e){
         this.moving = false;
     }
-	handleLayout(evt) {
-		this.offset = {
-			x: evt.nativeEvent.layout.x,
-			y: evt.nativeEvent.layout.y
-		}
-	}
     clear(){
         if(!this.paths) return;
         for(let i=0;i<this.paths.length;i++){
             this.paths = [];
         }
+		this.setState({
+			d: []
+		})
     }
+	toDataURL(callback) {
+		return this.refs.root.toDataURL(callback)
+	}
 	render(){
 		this.paths = this.paths || [];
-		const {width,height} = this.props;
-		return (<Svg {...this._panResponder.panHandlers} width={width} height={height} onLayout={(evt)=>this.handleLayout(evt)}>{
+		var {width,height} = this.props;
+		return (<Svg ref="root" {...this._panResponder.panHandlers} width={width} height={height} >{
 			this.paths.map(function(ele,pos){
 				return (<Path key={pos} {...ele.attr} d={ele.d.join("")} />)
 			})
