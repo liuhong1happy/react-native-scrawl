@@ -48,26 +48,7 @@ class Scrawl extends Component {
             onShouldBlockNativeResponder: (evt, gestureState) => true
         });
     }
-    /**
-     * propTypes of Scrawl
-     * @static
-     * @memberOf Scrawl
-     */
-    static propTypes = {
-        width: React.PropTypes.number, 
-        height: React.PropTypes.number,
-        attr: React.PropTypes.object
-    }
-    /**
-     * defaultProps of Scrawl
-     * @static
-     * @memberOf Scrawl
-     */
-    static defaultProps = { 
-        width: 600, 
-        height: 400,
-        attr: { "stroke": "#000","strokeWidth": 6,"fill": "none"}
-    }
+
 
     /**
      * Handler of PanResponder
@@ -144,6 +125,28 @@ class Scrawl extends Component {
 			})
 		}</Svg>)
 	}
+}
+
+
+/**
+ * propTypes of Scrawl
+ * @static
+ * @memberOf Scrawl
+ */
+Scrawl.propTypes = {
+    width: React.PropTypes.number, 
+    height: React.PropTypes.number,
+    attr: React.PropTypes.object
+};
+/**
+ * defaultProps of Scrawl
+ * @static
+ * @memberOf Scrawl
+ */
+Scrawl.defaultProps = { 
+    width: 600, 
+    height: 400,
+    attr: { "stroke": "#000","strokeWidth": 6,"fill": "none"}
 }
 
 export default Scrawl;
