@@ -5,16 +5,24 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
-  "files": ["react-native-scrawl.js"],
+  "files": [
+    "react-native-scrawl.js"
+  ],
   "main": "react-native-scrawl.js",
   "devDependencies": {
-    "react": "^15.4.1",
-    "react-native": "^0.39.2",
     "babel-jest": "17.0.2",
     "babel-preset-react-native": "1.9.0",
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import":"^2.2.0",
+    "eslint-plugin-jsx-a11y":"^3.0.2 || ^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "eslint-plugin-react-native": "^2.3.1",
     "jest": "17.0.3",
-    "react-test-renderer": "15.4.1",
-	"react-native-svg": "^4.4.1"
+    "react": "^15.4.1",
+    "react-native": "^0.39.2",
+    "react-native-svg": "^4.4.1",
+    "react-test-renderer": "15.4.1"
   },
   "jest": {
     "preset": "react-native"
