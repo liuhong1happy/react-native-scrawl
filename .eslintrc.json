@@ -12,7 +12,7 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react", "react-native"
+        "react"
     ],
     "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb:recommended"],
     "rules": {
