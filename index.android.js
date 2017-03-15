@@ -1,3 +1,8 @@
+/**
+ * @author Holly Liu <liuhong1.happy@163.com>
+ * @file android index file
+ * @version 0.2.0
+ */
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -14,10 +19,29 @@ import Scrawl from './react-native-scrawl'
 const {height, width} = Dimensions.get('window');
 const buttonHeight = 60;
 
-export default class scrawl extends Component {
+/**
+ * This class requires the modules :
+ * {@link https://github.com/facebook/react|react} & 
+ * {@link https://github.com/facebook/react-native|react-native} & 
+ * {@link Scrawl|react-native-scrawl} 
+ * @namespace Android-App
+ * @class Android-App
+ * @extends {Component}
+ */
+export default class App extends Component {
+  /**
+   * call react-native-scrawl clear
+   * @private
+   * @memberOf Android-App
+   */
   handleClear() {
     this.refs.scrawl.clear();
   }
+  /**
+   * call react-native-scrawl toDataURL
+   * @private
+   * @memberOf Android-App
+   */
   handleSave() {
     Alert.alert('info', 'Save Successfully!');
     // this.refs.scrawl.toDataURL((base64)=>{
@@ -78,4 +102,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('scrawl', () => scrawl);
+AppRegistry.registerComponent('scrawl', () => App);
