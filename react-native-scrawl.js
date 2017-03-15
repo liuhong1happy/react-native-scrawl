@@ -1,4 +1,8 @@
-/** @namespace Scrawl */
+/**
+ * @author Holly Liu <liuhong1.happy@163.com>
+ * @file react-native-scrawl index file
+ * @version 0.2.0
+ */
 
 import React, { Component } from 'react';
 import {
@@ -10,28 +14,38 @@ import {
 	Path
 } from 'react-native-svg';
 /**
- * Class of react-native-scrawl
- * 
- * @class Scrawl
+ * This class requires the modules :
+ * {@link https://github.com/facebook/react|react} & 
+ * {@link https://github.com/facebook/react-native|react-native} & 
+ * {@link https://github.com/react-native-community/react-native-svg|react-native-svg}
+ * @namespace
+ * @class
  * @extends {Component}
  */
 class Scrawl extends Component {
     /**
      * Creates an instance of Scrawl.
-     * @param {any} props 
-     * 
+     * @constructs constructor
+     * @param {number} props.width - width of canvas 
+     * @param {number} props.height - height of canvas 
+     * @param {object} props.attr - attr of the scrawl path, you can see 
+     * {@link https://github.com/react-native-community/react-native-svg#common-props|react-native-svg#common-props}
      * @memberOf Scrawl
      */
 	constructor(props){
 		super(props);
+        /**
+         * state of Scrawl
+         * @property {object[]} this.state.d - the paths of scrawl
+         * @memberOf Scrawl
+         */
 		this.state = {
 			d: []
 		}
     }
     /**
      * componentWillMount of react lief cycle
-     * @this Scrawl
-     * @override
+     * @private
      * @memberOf Scrawl
      */
     componentWillMount() {
@@ -52,6 +66,7 @@ class Scrawl extends Component {
 
     /**
      * Handler of PanResponder
+     * @private
      * @param {any} evt 
      * @param {any} gestureState 
      * @memberOf Scrawl
@@ -70,6 +85,7 @@ class Scrawl extends Component {
     }
     /**
      * Handler of PanResponder
+     * @private
      * @param {any} evt 
      * @param {any} gestureState 
      * @memberOf Scrawl
@@ -89,6 +105,7 @@ class Scrawl extends Component {
     }
     /**
      * Handler of PanResponder
+     * @private
      * @param {any} e 
      * @memberOf Scrawl
      */
@@ -97,22 +114,32 @@ class Scrawl extends Component {
     }
     /**
      * Clear all path
+     * @public
      * @memberOf Scrawl
+     * @description clear this.paths & this.state.d
      */
     clear(){
         if(!this.paths) return;
-        for(let i=0;i<this.paths.length;i++){
-            this.paths = [];
-        }
+        this.paths = [];
 		this.setState({
 			d: []
 		})
     }
+
+
     /**
      * Base64 of svg
-     * @callback  callback
+     * @callback  Base64Callback
+     * @param {string} base64 Base64 Code of Image
+     */
+    /**
+     * Get the base64 code of image.
+     * @public
+     * @param {Base64Callback} callback 
+     * @returns react-native-svg's SVG toDataURL function return value
      * @memberOf Scrawl
      */
+
 	toDataURL(callback) {
 		return this.refs.root.toDataURL(callback)
 	}
